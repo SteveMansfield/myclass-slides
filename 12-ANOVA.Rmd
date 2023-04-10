@@ -1,0 +1,67 @@
+---
+title: "ANOVA"
+author: "Steve Mansfield"
+date: "04/09/2023"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    self_contained: true
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: 16:9
+---
+<style type="text/css">
+.smaller { font-size: 90%}
+table { font-size: 80%}
+td { padding: 0ex}
+</style>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(htmltools.dir.version = FALSE)
+options(scipen = 1, digits = 4)
+
+library(tidyverse)
+library(kableExtra)
+xaringanExtra::use_xaringan_extra(c("tile_view","scribble","panelset"))
+
+library(xaringanthemer)
+library(gridExtra)
+style_mono_accent(
+  base_color = "#1c5253",
+  base_font_size = "25px",
+  header_font_google = google_font("Nunito","400","400i","700"),
+  text_font_google   = google_font("Nunito","400","400i","700","700i"),
+  code_font_google   = google_font("Fira Mono"),
+  header_h1_font_size = '2.50rem',
+  header_h2_font_size = '1.25rem',
+  header_h3_font_size = '1.00rem',
+)
+
+```
+
+
+```{r, include=FALSE}
+source("myclass-functions.R", local = knitr::knit_global())
+```
+$\newcommand\sem{\sigma_{\scriptscriptstyle \!M}}$
+$\newcommand\sm{s_{\scriptscriptstyle M}}$
+$\newcommand\smd{s_{\scriptscriptstyle M_D}}$
+$\newcommand\tc{t_\text{crit}}$
+$\newcommand\smm{s_{\scriptscriptstyle M_1-M_2}}$
+$\newcommand\pv{s^2_p}$
+
+## Introduction to Analysis of Variance
+Previously we have seen that we can use a t-test to compare two means, e.g.,
+to analyze data from experiments that test two conditions.
+- e.g., To see if reading speed is different for Times versus Courier:
+  - independent variable — __Typeface__: Times, Courier
+  - dependent variable — __Reading speed__:  words per minute
+  
+- We can calculate
+$$t=\frac{M_1-M_2}{\smm}$$
+and find if the mean difference is significantly more than zero.
+
+But what if the study has three, or four, or more conditions?
